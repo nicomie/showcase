@@ -1,23 +1,21 @@
 <script setup lang="ts">
 import { onMounted, reactive} from "vue";
 import * as THREE from 'three';
-import { CircleGeometry, Scene } from "three";
+import { useMouse } from "./composition/useMouse";
+import Wave from "./components/Wave.vue"
+
 
 var scene: THREE.Scene;
 var sceneGeometry: THREE.Mesh<THREE.CircleGeometry, THREE.MeshPhongMaterial>[] = [];
 var camera: THREE.PerspectiveCamera;
 var renderer: THREE.Renderer;
-var mouse = THREE.Vector2;
+var raycaster: THREE.Raycaster;
+var mouse = reactive(useMouse())
+var vec: THREE.Vector3;
 
 const initScene = () => {
-  const raycaster = new THREE.Raycaster();
-  const mouse = new THREE.Vector2();
+  vec = new THREE.Vector3(mouse.mouseX, mouse.mouseY, 1)
 
-  window.addEventListener('mousemove', (event) => {
-  // Calculate normalized mouse coordinates
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-  });
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x10120B)
@@ -26,10 +24,12 @@ const initScene = () => {
   camera.position.z = 10;
  
   renderer = new THREE.WebGLRenderer();
-  renderer.setSize( window.innerWidth/2, window.innerHeight);
+  renderer.setSize( window.innerWidth/2, 1000);
 
   camera.aspect = window.innerWidth/window.innerHeight/2;
   camera.updateProjectionMatrix();
+
+  raycaster = new THREE.Raycaster(camera.position, vec.sub(camera.position).normalize());
 
   document.getElementById('landing')?.appendChild(renderer.domElement)
 
@@ -37,9 +37,7 @@ const initScene = () => {
   scene.add( light );
 }
 
-const doThis = (e: MouseEvent) => {
-  console.log("HI")
-}
+
 
 
 const addCircle = (x: number, y: number, size: number) => {
@@ -49,9 +47,6 @@ const addCircle = (x: number, y: number, size: number) => {
   circle.position.x = x;
   circle.position.y = y;
   scene.add( circle );
-
-  renderer.domElement.addEventListener('mouseover', doThis, false)
-
   sceneGeometry.push(circle);
 
 }
@@ -60,9 +55,16 @@ const animate = () => {
   if(!sceneGeometry) {
     return
   }
+
+
   sceneGeometry.forEach((x) => {
     let val = 1 * (0.001 * mouse.mouseX);
     x.scale.set(val, val, val); 
+
+    const intersects = raycaster.intersectObject(x)
+    if(intersects.length > 0) {
+      console.log(intersects)
+    }
 
   })
    
@@ -86,8 +88,9 @@ onMounted(() => {
 
 
 <template >
-  <div id="landing" class="flex">
-    <div class="bg-main h-screen text-white w-6/12 flex justify-center items-center flex-col-reverse" >
+  <Wave/>
+  <div id="landing" class="flex h-1000px">
+    <div class="bg-main h-screen text-white w-6/12 flex justify-center items-center " >
       <article>
         <h1 class="text-5xl">Nicholas Miettinen</h1>
         <p class="text-2xl">Explore my work</p>
@@ -97,6 +100,7 @@ onMounted(() => {
   
       
     </div>
+    
   
   </div>
 
