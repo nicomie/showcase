@@ -3,8 +3,12 @@ module.exports = {
    darkMode: false, // or 'media' or 'class'
    theme: {
      extend: {
+      fontFamily: {
+        'abhaya': ['Abhaya Libre', 'sans'],
+      },
       'default': '#333333'
      },
+     
      colors: {
       main: '#10120B',
       main_lighter: '#33342F',
