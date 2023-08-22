@@ -1,109 +1,52 @@
 <script setup lang="ts">
-import { onMounted, reactive} from "vue";
-import * as THREE from 'three';
-import { useMouse } from "./composition/useMouse";
-import Wave from "./components/Wave.vue"
 
 
-var scene: THREE.Scene;
-var sceneGeometry: THREE.Mesh<THREE.CircleGeometry, THREE.MeshPhongMaterial>[] = [];
-var camera: THREE.PerspectiveCamera;
-var renderer: THREE.Renderer;
-var raycaster: THREE.Raycaster;
-var mouse = reactive(useMouse())
-var vec: THREE.Vector3;
+import { ref } from "vue";
+import Intro from "./views/Intro.vue"
 
-const initScene = () => {
-  vec = new THREE.Vector3(mouse.mouseX, mouse.mouseY, 1)
-
-
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x10120B)
-  camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-  camera.rotation.z -= .2
-  camera.position.z = 10;
- 
-  renderer = new THREE.WebGLRenderer();
-  renderer.setSize( window.innerWidth/2, 1000);
-
-  camera.aspect = window.innerWidth/window.innerHeight/2;
-  camera.updateProjectionMatrix();
-
-  raycaster = new THREE.Raycaster(camera.position, vec.sub(camera.position).normalize());
-
-  document.getElementById('landing')?.appendChild(renderer.domElement)
-
-  const light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
-  scene.add( light );
-}
-
-
-
-
-const addCircle = (x: number, y: number, size: number) => {
-  const geometry = new THREE.CircleGeometry(size, 32);
-  const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
-  const circle = new THREE.Mesh( geometry, material );
-  circle.position.x = x;
-  circle.position.y = y;
-  scene.add( circle );
-  sceneGeometry.push(circle);
-
-}
-
-const animate = () => {
-  if(!sceneGeometry) {
-    return
-  }
-
-
-  sceneGeometry.forEach((x) => {
-    let val = 1 * (0.001 * mouse.mouseX);
-    x.scale.set(val, val, val); 
-
-    const intersects = raycaster.intersectObject(x)
-    if(intersects.length > 0) {
-      console.log(intersects)
-    }
-
-  })
-   
-  requestAnimationFrame( animate );
-  renderer.render( scene, camera );
-
-
-}
-
-onMounted(() => {
-
-  initScene();
-  addCircle(1,1, 0.5);
-  addCircle(3,3, 0.7);
-  animate();
-
-})
-
+const startExperience = ref(false)
 </script>
 
-
-
 <template >
-  <Wave/>
-  <div id="landing" class="flex h-1000px">
-    <div class="bg-main h-screen text-white w-6/12 flex justify-center items-center " >
-      <article>
-        <h1 class="text-5xl">Nicholas Miettinen</h1>
-        <p class="text-2xl">Explore my work</p>
-        <img src="./assets/arrow.svg" alt="arrpw" class="pt-5 w-8/12 ml-80">
-     
+  <section class="w-screen h-screen bg-secondary">
+  <Intro @done="startExperience=true"></Intro>
+  <Transition>
+  <main v-if="startExperience" class="relative w-screen h-screen flex items-center justify-center text-white flex-col">
+    <nav class="absolute top-0 h-24 w-screen bg-secondary_contrast flex content-center justify-around ">
+      <ul class="[&>li]:text-xl flex items-center gap-20">
+        <li>Nicholas Miettinen</li>
+        <li>Hej</li>
+      </ul>
+    </nav>
+    <section>
+ 
+    <section class="flex gap-[100px] [&>article]:w-[400px] [&>article]:h-[300px] [&>article]:bg-secondary_contrast ">
+      <p class="absolute text-xl mt-[420px] left flex gap-4">View all of my work <img class="color-current" src="@/assets/arrow_straight.svg"/></p>
+      <article class="flex">
+        <h1 class="text-5xl absolute pt-[275px] pl-[260px]">Boba shop</h1>
       </article>
-  
+      <article class="flex mt-10">
+        <h1 class="text-5xl absolute pt-[280px] pl-[220px]">Not a boba shop</h1>
+      </article>
       
-    </div>
-    
+    </section>
+  </section>
   
-  </div>
-
-
+  </main>
+</Transition>
+ 
+  </section>
 </template>
 
+<style>
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
