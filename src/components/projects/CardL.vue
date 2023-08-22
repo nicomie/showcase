@@ -6,7 +6,7 @@
   
     <article class="bg-secondary_contrast rounded-md h-full ]">
   
-        <img src="../assets/i.svg" alt="" class="h-full w-full ">
+        <img src="@/assets/i.svg" alt="" class="h-full w-full ">
     
         
     </article>
