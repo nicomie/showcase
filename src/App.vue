@@ -5,6 +5,7 @@ import { ref } from "vue";
 import Intro from "./views/Intro.vue"
 import Wrapper from "./components/showcase/Wrapper.vue"
 import Header from "./components/header/Header.vue"
+import MainContent from "./components/navigation/scroll_group/MainContent.vue"
 const startExperience = ref(false)
 </script>
 
@@ -14,11 +15,18 @@ const startExperience = ref(false)
   <Transition>
   <main v-if="startExperience" class="relative w-screen h-screen flex items-center justify-center text-white flex-col">
     <Header/>
-    <Wrapper/>
-    <section>
+    <MainContent>
+      <template v-slot:first>
+        <Wrapper/>
+      </template>
+      <template v-slot:second>
+        <Wrapper/>
+      </template>
+   
+      
+    </MainContent>
+    
 
-  </section>
-  
   </main>
 </Transition>
  
