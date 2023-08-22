@@ -1,4 +1,6 @@
 <template>
+    <MainNav/>
+
     <section class="flex gap-[100px] [&>article]:w-[400px] [&>article]:h-[300px] [&>article]:bg-secondary_contrast ">
         <p class="absolute text-xl mt-[420px] left flex gap-4">View all of my work <img class="color-current" src="@/assets/arrow_straight.svg"/></p>
         <article class="flex">
@@ -12,5 +14,5 @@
 </template>
 
 <script setup lang="ts">
-
+import MainNav from "@/components/navigation/MainNav.vue"
 </script>
