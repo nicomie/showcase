@@ -67,11 +67,10 @@ const animate = () => {
 }
 
 onMounted(() => {
-
-// initScene();
-// addCircle(1,1, 0.5);
-// addCircle(3,3, 0.7);
-// animate();
+  initScene();
+  addCircle(1,1, 0.5);
+  addCircle(3,3, 0.7);
+  animate();
 
 })
 

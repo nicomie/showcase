@@ -67,7 +67,7 @@ import { useScroll } from '../../../composition/useScroll';
         </div>
         </Transition>
         <Transition :name="direction ? 'up' : 'down'" >
-            <div ref="third" class="fixed overflow-hidden z-10" v-if="idx==2">
+            <div ref="third" class="fixed overflow-hidden z-9" v-if="idx==2">
                 <slot name="third"></slot>
     
             </div>
@@ -77,10 +77,14 @@ import { useScroll } from '../../../composition/useScroll';
 
 <style scoped>
 
+ul > article {
+    transition: all .35s ease;
 
+}
 .active2 {
     height: 3rem;
-    transition: height .25s ease;
+    background-color: #1B8198;
+    
 
 }
 .up-enter-active {

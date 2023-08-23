@@ -1,5 +1,5 @@
 <template>
-    <section class="flex flex-col justify-between p-4">
+    <section class="flex flex-col justify-between p-4 w-full h-full">
     <article class="bg-secondary_contrast rounded-md h-full">
         <h1 class="text-white pt-5 pl-5 text-xl">{{props.title}}</h1>
         <ul class="text-white pl-5 pt-2 flex">

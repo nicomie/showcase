@@ -1,14 +1,22 @@
 <template>
  
-  <div class="h-screen w-screen flex items-center justify-center" :style="{'background-color': color }">
-    <section class="flex gap-8 [&>*]:h-64 [&>*]:w-64 [&>*]:rounded [&>*]:bg-secondary_contrast ">
-      <article><h1>Hello</h1></article>
-      <article><h1>There</h1></article>
+  <div class="h-screen w-screen flex items-center justify-center " :style="{'background-color': color }">
+    <section class="flex gap-32 [&>*]:h-[300px] [&>*]:w-[450px] [&>*]:rounded  relative">
+      <article class="">
+        <CardL title="Café ordering system"></CardL>
+      </article>
+      <article class="mt-10">
+        <CardL title="Recipe creation service"></CardL>
+      </article>
+      <p class=" absolute text-white text-3xl bottom-0 whitespace-nowrap left-0 translate-y-[300px] gap-5 items-center flex">View all my work <img class="h-8 w-12" src="@/assets/arrow_straight.svg"/></p>
     </section>
+ 
   </div>
 </template>
 
 <script setup lang="ts">
+import CardL from '../projects/CardL.vue';
+
 defineProps({
   color: String
 })

@@ -113,7 +113,7 @@ const intro = ref(null)
 const introAnimation = ref(false)
 const done = ref(false)
 
-const {direction, triggered} = useScroll(intro, 300)
+const {triggered} = useScroll(intro, 300)
 
 
 watch(triggered, () => {

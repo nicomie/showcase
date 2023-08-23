@@ -1,4 +1,4 @@
-import {ref} from 'vue'
+import {onBeforeUnmount, onMounted, ref} from 'vue'
 
 
 export function useMouse() {
@@ -11,7 +11,14 @@ export function useMouse() {
         mouseY.value = ex.pageY;
     };
 
+    onMounted(() => {
+        window.addEventListener('mousemove', update)
+    })
 
+    onBeforeUnmount(() => {
+        window.removeEventListener('mousemove', update)
+
+    })
 
     return {
         mouseX,
