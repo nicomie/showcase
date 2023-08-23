@@ -11,8 +11,9 @@ export function useScroll(element: Ref<HTMLElement> | Ref<null> , duration: numb
             isBlocked.value = true;
 
             const scrollEvent = e as any
-       
-            triggered.value = true
+            
+            triggered.value = !triggered.value
+      
             if(scrollEvent.deltaY > 0){
                 direction.value = false
             } else {
@@ -22,7 +23,6 @@ export function useScroll(element: Ref<HTMLElement> | Ref<null> , duration: numb
             setTimeout(() => {
 
                 isBlocked.value = false
-                triggered.value = false
 
             }, duration)
         }
