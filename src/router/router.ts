@@ -4,24 +4,24 @@ import Main from "../views/Main.vue";
 
 const routes = [
     {
-      path: "/showcase",
+      path: "/",
       name: "Home",
       component: Main,
     },
     {
-    path: "/showcase/work",
+    path: "//work",
     name: "Work",
     component: () => import("../views/Work.vue"),
     },
     {
-    path: "/showcase/work/:id",
+    path: "/work/:id",
     name: "Project",
     component: () => import("../views/Project.vue")
     }
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/showcase/'),
     routes,
   });
 
