@@ -1,10 +1,8 @@
 <template>
-    <section class="flex h-full w-full gap-5 bg-secondary_contrast relative">
-
-        <img src="@/assets/i.svg" alt="" class="h-[60%] w-[60%] m-auto">
+    <section class="flex flex-col h-full w-full gap-5 relative">
+        <p class="after:content-[''] after:w-[33%] after:h-1 after:mt-3 after:bg-secondary_pop after:block text-white text-5xl ">{{title}}</p>
+        <img :src="img" alt="" class="h-[100%] w-[100%] m-auto">
         
-        <p class="absolute text-white text-5xl bottom-0 whitespace-nowrap right-0 translate-x-24 translate-y-6">{{title}}</p>
-
 </section>
 
 </template>
@@ -13,6 +11,7 @@
     defineProps({
         title: String,
         tags: Array<String>,
+        img: String
     })
 
 </script>
