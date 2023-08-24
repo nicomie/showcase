@@ -9,9 +9,11 @@
       <article class="">
         <CardL title="Recipe creation service" img="food.png"></CardL>
       </article>
-      <RouterLink to="/showcase/work">
-      <p class=" absolute text-white text-3xl bottom-0 whitespace-nowrap left-0 translate-y-[300px] gap-5 items-center flex">View all my work <img class="h-8 w-12" src="../../assets/arrow_straight.svg"/></p>
+
+      <RouterLink to="/showcase/work" class="absolute">
+      <p class=" absolute text-white text-3xl bottom-0 hover:cursor-pointer hover:text-secondary_pop transition duration-100 whitespace-nowrap left-0 translate-y-[200px] gap-5 items-center flex">View all my work <img class="h-8 w-12" src="../../assets/arrow_straight.svg"/></p>
       </RouterLink>
+
     </section>
  
   </div>
