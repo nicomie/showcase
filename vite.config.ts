@@ -6,9 +6,5 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   base: '/showcase/',
   plugins: [vue()],
-  resolve: {
-    alias: [
-      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
-    ]
-  }
+
 })
