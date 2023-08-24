@@ -81,20 +81,24 @@
         <article :class="{'shrink': introAnimation}" class="intro-animation bg-secondary flex items-center justify-center flex-col">
             <article>
                 <h1 class="text-5xl">Nicholas Miettinen</h1>
-                <p class="text-3xl">Software develper</p>
+                <p class="text-3xl">Software developer</p>
                 <article class="flex items-center mt-5">        
-                    <button class=" bg-secondary_pop py-2 px-4 rounded hover:bg-secondary_contrast transition duration-150">
+                    <button class=" bg-secondary_pop py-2 px-4 rounded hover:bg-secondary_contrast transition text-black duration-150">
                         <p class="text-xl">Get my CV</p>
                     </button>
+                    <RouterLink to="/showcase/work">
                     <p class="hover:cursor-pointer pl-5 hover:text-secondary_pop transition duration-100 text-xl flex gap-4">View my work <img class="color-current" src="../assets/arrow_straight.svg"/> </p>
+                    </RouterLink>
                 </article>
             </article>
     
         </article>
+
+    
  
 
         <article :class="{'expand': introAnimation}" class="intro-animation flex items-center justify-center">
-            <h1 class="text-5xl">Or scroll to explore</h1>
+            <h1 class="text-5xl">Or <span class="text-secondary_pop">scroll </span> to explore</h1>
         </article>
   
 
