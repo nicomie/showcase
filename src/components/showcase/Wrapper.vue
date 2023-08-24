@@ -4,6 +4,7 @@
     <section class="flex gap-32 [&>*]:h-[300px] [&>*]:w-[450px] [&>*]:rounded  relative">
       <article class="">
         <CardL title="Café ordering system" img="src/assets/i.svg"></CardL>
+
       </article>
       <article class="">
         <CardL title="Recipe creation service" img="src/assets/food.png"></CardL>
