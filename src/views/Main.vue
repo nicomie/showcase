@@ -24,9 +24,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Intro from "@/views/Intro.vue"
-import Wrapper from "@/components/showcase/Wrapper.vue"
-import MainContent from "@/views/MainContent.vue"
+import Intro from "../views/Intro.vue"
+import Wrapper from "../components/showcase/Wrapper.vue"
+import MainContent from "../views/MainContent.vue"
 const startExperience = ref(false)
 </script>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Ref, onMounted, ref, watch} from 'vue'
-import { useScroll } from '@/composition/useScroll';
+import { useScroll } from '../composition/useScroll';
 
     const first = ref(null)
     const second = ref(null)
