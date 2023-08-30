@@ -1,9 +1,15 @@
 <template>
-    <section class="flex flex-col h-full w-full gap-5 relative">
-        <p class="after:content-[''] after:w-[33%] after:h-1 after:mt-3 after:bg-secondary_pop after:block text-white text-5xl ">{{title}}</p>
-        <img :src="imageUrl"  alt="" class="h-[100%] w-[100%] m-auto">
-        
-</section>
+    <section class="flex flex-col w-[400px] gap-5 " >
+        <p class="text-white text-4xl">{{title}}</p>
+        <article class="flex h-[250px] w-full rounded ">
+        <img :src="imageUrl"  alt="" class="rounded object-cover">
+        </article>
+        <ul class="flex flex-wrap gap-4 ">
+            <li v-for="tag in tags" :key="tag" class="text-white text-xl">{{tag}} </li>
+        </ul>
+ 
+   
+    </section>
 
 </template>
 
@@ -11,7 +17,7 @@
 
     const props = defineProps({
         title: String,
-        tags: Array<String>,
+        tags: Array<string>,
         img: String
     })
 
