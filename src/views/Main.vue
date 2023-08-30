@@ -1,20 +1,29 @@
+<script setup lang="ts">
+
+import Intro from "../views/Intro.vue"
+import Wrapper from "../components/showcase/Wrapper.vue"
+import MainContent from "../views/MainContent.vue"
+
+</script>
 
 <template>
 <section class="w-screen h-screen bg-secondary ">
-    <Intro @done="startExperience=true"></Intro>
+   
     <Transition>
-    <section v-if="startExperience" class="flex items-center justify-center h-screen m-auto w-full">
+    <section class="flex items-center justify-center h-screen m-auto w-full">
   
-      <MainContent>
-        <template class="w-[300px] h-[300px] bg-white" v-slot:first>
-          <Wrapper color="#303C54"/>
+      <MainContent :content="['first', 'second', 'third']">
+        <template  v-slot:first>
+          <Intro ></Intro>
         </template>
-        <template class="w-[300px] h-[300px] bg-white" v-slot:second>
+        <template  v-slot:second>
           <Wrapper color="#192948"/>
         </template>
-        <template class="w-[300px] h-[300px] bg-white" v-slot:third>
-          <Wrapper color="blue"/>
+        <template  v-slot:third>
+          <Wrapper color="#303C54"/>
         </template>
+     
+       
     </MainContent>
   </section>
   </Transition>
@@ -22,13 +31,7 @@
 
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
-import Intro from "../views/Intro.vue"
-import Wrapper from "../components/showcase/Wrapper.vue"
-import MainContent from "../views/MainContent.vue"
-const startExperience = ref(false)
-</script>
+
 
 <style>
 
