@@ -9,7 +9,7 @@ let projects: Data[] = [
     {
         "id": 0,
         "name": "Café ordering system",
-        "tags": ["Go, REST, Authentication, CI/CD, Github Actions"],
+        "tags": ["Go", "REST", "Authentication", "CI/CD", "Github Actions"],
         "key_challenges": [
             "Ensuring good input validation for the API",
             "Authentication middleware to handle correct access for users and personnel",
@@ -20,7 +20,7 @@ let projects: Data[] = [
     {
         "id": 1,
         "name": "Recipe creation platform",
-        "tags": ["Vue, Typescript, SPA, Cloud, Firebase, Authentication"],
+        "tags": ["Vue", "Typescript", "SPA", "Cloud", "Firebase", "Authentication"],
         "key_challenges": [
             "Creating a platform that support intuition for recipe creation",
             "Handling client-side caching to pick up editing at a later time",
