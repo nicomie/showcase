@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import {Ref, onMounted, ref, watch} from 'vue'
+import { ref, watch} from 'vue'
 import { useScroll } from '../composition/useScroll';
-
-    const first = ref(null)
-    const second = ref(null)
-    const third = ref(null)
+  
     const main = ref(null)
-    const slots: Ref<HTMLElement | null>[] = [first, second,third]
     const idx = ref(0)
+
+    const props = defineProps<{
+        content: Array<string>
+    }>()
 
     const {direction, triggered} = useScroll(main, 300)
 
     const handleScroll = (val: number) => {
 
         if (val > 0) {
-            if(idx.value >= slots.length-1 ) {
+            if(idx.value >= props.content.length-1 ) {
             return
             }
         } else if (val < 0) {
@@ -28,10 +28,6 @@ import { useScroll } from '../composition/useScroll';
 
     watch(triggered, () => {
         direction.value ? handleScroll(-1) : handleScroll(1)
-    })
-
-    onMounted(() => {
-        slots[idx.value].value?.classList.add("active1")
     })
 
 
@@ -51,27 +47,15 @@ import { useScroll } from '../composition/useScroll';
             <article :class="{active2: idx==2}"></article>
          
         </ul>
-
-        <Transition :name="direction ? 'up' : 'down'" mode="in-out" >
-        <div ref="first"  class="fixed  overflow-hidden" v-if="idx==0">
-            <slot name="first">
+        
+        <Transition :name="direction ? 'up' : 'down'" v-for="(name, index) in content" >
+        <div class="fixed overflow-hidden h-full w-full" :ref="name" v-if="(idx==index) == true">
+            <slot :name="name" >
 
             </slot>
         </div>
         </Transition>
- 
-        <Transition :name="direction ? 'up' : 'down'" >
-        <div ref="second" class="fixed overflow-hidden" v-if="idx==1">
-            <slot name="second"></slot>
 
-        </div>
-        </Transition>
-        <Transition :name="direction ? 'up' : 'down'" >
-            <div ref="third" class="fixed overflow-hidden z-9" v-if="idx==2">
-                <slot name="third"></slot>
-    
-            </div>
-            </Transition>
     </section>
 </template>
 
@@ -95,7 +79,7 @@ ul > article {
 }
 
 .down-enter-active {
-    animation: fromup 0.5s ;
+    animation: fromup  0.5s ;
 }
 .down-leave-active {
     animation: up 0.5s;
