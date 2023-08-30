@@ -53,7 +53,7 @@
     width: 0px !important;
   }
   .shrink > * {
-    transition: all 0.1s ease-out;
+   
     opacity: 0;
   }
 
@@ -68,17 +68,17 @@
   }
 
 .intro-animation {
-    transition: 0.5s ease
+    transition: 0.4s ease
 }
 
 </style>
 
 
 <template>
-    <section v-if="!done" :class="{'start': introAnimation}" ref="intro" class="flex h-full w-full bg-main text-white [&>article]:w-[50%]">
+    <section ref="intro" class="flex h-full w-full bg-main text-white [&>article]:w-[50%]">
 
      
-        <article :class="{'shrink': introAnimation}" class="intro-animation bg-secondary flex items-center justify-center flex-col">
+        <article  class="intro-animation bg-secondary flex items-center justify-center flex-col">
             <article>
                 <h1 class="text-5xl">Nicholas Miettinen</h1>
                 <p class="text-3xl">Software developer</p>
@@ -97,7 +97,7 @@
     
  
 
-        <article :class="{'expand': introAnimation}" class="intro-animation flex items-center justify-center">
+        <article class="intro-animation flex items-center justify-center">
             <h1 class="text-5xl">Or <span class="text-secondary_pop">scroll </span> to explore</h1>
         </article>
   
@@ -107,26 +107,5 @@
 
 
 <script setup lang="ts">
-import { ref, watch, } from 'vue';
-import { useScroll } from '../composition/useScroll';
-
-
-const emit = defineEmits(['done'])
-
-const intro = ref(null)
-const introAnimation = ref(false)
-const done = ref(false)
-
-const {triggered} = useScroll(intro, 300)
-
-
-watch(triggered, () => {
-    introAnimation.value = true
-
-    setTimeout(() => {
-        done.value = true
-        emit('done')
-    }, 1100)
-})
 
 </script>
