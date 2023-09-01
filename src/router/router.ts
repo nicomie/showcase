@@ -23,7 +23,7 @@ const router = createRouter({
   });
 
 
-  router.beforeEach((to, from) => {
+  router.beforeEach((to, _) => {
     let state = useStateStore()
     
     if(to.name=='Home' && 'fullscreen' in to.query) {

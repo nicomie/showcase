@@ -9,14 +9,14 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 
 
-    const props = defineProps({
+ defineProps({
         title: String,
         tags: Array<string>,
         img: String,
         full: Boolean
     })
 
-    const imageUrl = new URL(`../../assets/${props.img}`, import.meta.url).href
+    //const imageUrl = new URL(`../../assets/${props.img}`, import.meta.url).href
 
     const ready = ref(false)
     

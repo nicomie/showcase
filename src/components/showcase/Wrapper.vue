@@ -24,15 +24,15 @@
 </template>
 
 <script setup lang="ts">
-import CardL from '../projects/CardL.vue';
-import { useStateStore } from '../../store/state';
-import { onBeforeMount, onBeforeUpdate, onMounted, onUnmounted, ref, watch } from 'vue';
+
+//import { useStateStore } from '../../store/state';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 
 
-let state = useStateStore()
-const cafeTags = ["Go", "REST", "Authentication", "CI/CD", "Github Actions"]
-const recipeTags = ["Vue", "Typescript", "SPA", "Cloud", "Firebase", "Authentication"]
+//let state = useStateStore()
+//const cafeTags = ["Go", "REST", "Authentication", "CI/CD", "Github Actions"]
+//const recipeTags = ["Vue", "Typescript", "SPA", "Cloud", "Firebase", "Authentication"]
 
 const ready = ref(false)
 
@@ -45,7 +45,7 @@ const props = defineProps({
   tags: Array<string>,
 })
 
-const imageUrl = new URL(`../../assets/${props.img}`, import.meta.url).href
+//const imageUrl = new URL(`../../assets/${props.img}`, import.meta.url).href
 
 const fullProp = ref(props.full)
 

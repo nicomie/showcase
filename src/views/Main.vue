@@ -72,7 +72,7 @@ import { useRouter } from 'vue-router';
             name: 'Home',
             query: {
                 id: idx.value,
-                fullscreen: true
+                fullscreen: "true"
             }
         })
         
