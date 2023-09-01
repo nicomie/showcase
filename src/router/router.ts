@@ -6,7 +6,7 @@ import { useStateStore } from "../store/state";
 
 const routes = [
       {
-        path: '', // The default child route
+        path: '/', // The default child route
         name: 'Home',
         component: Main,
         props: (route: RouteLocationNormalized) => ({
