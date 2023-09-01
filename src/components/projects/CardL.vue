@@ -1,13 +1,7 @@
 <template>
-    <section class="flex flex-col w-[800px] gap-5 " >
-      
-        <article class="flex h-[550px] w-[800px] rounded ">
-        <img :class="[{slide: ready}, {full:full}]" src="https://images.unsplash.com/photo-1475257026007-0753d5429e10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-        alt="" class="oki rounded object-cover">
-        </article>  
- 
-   
-    </section>
+  
+
+  
 
 </template>
 
@@ -44,21 +38,23 @@ onUnmounted(() => {
 
 
 .oki{
-    transition: all 1s ease-in-out;
-    transform: translateX(-50px) scale(0.85) ;
+    transition: all 1.2s cubic-bezier(.59,.2,.53,.94);;
+    transform: translateX(-50px) scale(0.8) ;
     position: absolute;
     width: 800px;
     height: 500px;
     top: 25%;
-    left: 25%;
+    left: 45%;
+  
 }
 
 .oki.full{
-    transform: translateX(0px) scale(2) ;
+    transform: translateX(0) scale(1);
     height: 100%;
     top: 0px;
     left: 0;
     width: 50%;
+
     
 }
 .oki.slide {

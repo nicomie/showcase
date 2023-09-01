@@ -20,7 +20,7 @@ import { useRouter } from 'vue-router';
 
     const isPaused = ref(false)
 
-    const {direction, triggered} = useScroll(main, 300, state.getFullscreen())
+    const {direction, triggered} = useScroll(main, 800, state.getFullscreen())
 
 
     const handleScroll = (val: number) => {
@@ -43,6 +43,19 @@ import { useRouter } from 'vue-router';
                 id: idx.value
             }
         })
+
+
+        const doc = document.getElementById('app')
+
+        if(idx.value == 0){
+            if(doc)
+            doc.style.backgroundColor="#34344a"
+        }
+        if(idx.value == 1) {
+            if(doc)
+            doc.style.backgroundColor="#80475e"
+        }
+
 
               
     }
@@ -70,33 +83,31 @@ import { useRouter } from 'vue-router';
 
 <template>
     
-    <section  ref="main" class="h-screen w-screen flex flex-col items-center relative justify-center ">
+    <section  ref="main" class="h-screen  w-screen flex flex-col items-center relative justify-center ">
    
-        <ul class="flex flex-col gap-5 absolute left-0 ml-48 [&>*]:bg-main [&>*]:w-6 [&>*]:h-6 [&>*]:rounded-full z-10">
+        <ul v-if="!state.getFullscreen().value" class="flex flex-col gap-5 absolute left-0 ml-32 [&>*]:bg-[black] [&>*]:w-5 [&>*]:h-2 [&>*]:rounded-full z-10">
             
             <article :class="{active2: idx==0}"></article>
 
             <article :class="{active2: idx==1}"></article>
  
-            <article :class="{active2: idx==2}"></article>
-            {{ nextRoute.ready }}
-            {{ nextRoute.index }}
-            {{ isPaused }}
+ 
            
         </ul>
         
 
-
         <Transition :name="direction ? 'up' : 'down'">
         
-          <Wrapper @goTo="changeView" class="absolute h-full w-full" v-if="idx==0" :full="state.getFullscreen().value" :reference="idx"/>
+          <Wrapper @goTo="changeView" class="absolute h-full w-full" v-if="idx==0" :full="state.getFullscreen().value" :reference="idx" 
+          title="Note Taking Application" img="https://images.unsplash.com/photo-1528141603775-81fd11f61682?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"/>
  
         </Transition>
    
       
        
         <Transition :name="direction ? 'up' : 'down'" >
-          <Wrapper @goTo="changeView" class=" absolute h-full w-full" v-if="idx==1" :full="state.getFullscreen().value" :reference="idx"/>
+          <Wrapper @goTo="changeView" class=" absolute h-full w-full" v-if="idx==1" :full="state.getFullscreen().value" :reference="idx" 
+          title="Café Ordering System" img="https://images.unsplash.com/photo-1511227499331-25c621db940e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2128&q=80"/>
      
 
         </Transition>
@@ -104,7 +115,9 @@ import { useRouter } from 'vue-router';
    
   
     </section>
-    <section v-if="state.getFullscreen().value" class="h-[1600px] z-10 bg-white w-[100%] right-0 absolute "> HELLo</section>
+ 
+    <section v-if="state.getFullscreen().value" class="extra h-[1600px] z-10 bg-white w-[100%] right-0 absolute "> HELLo</section>
+
 </template>
 
 <style scoped>
@@ -114,12 +127,17 @@ import { useRouter } from 'vue-router';
 }
 
 ul > article {
-    transition: all .35s ease;
+    transition: all .5s ease;
 
 }
+
+.extra {
+    transition: all .35s ease;
+   
+}
 .active2 {
-    height: 3rem;
-    background-color: #1B8198;
+    width: 4rem;
+    background-color: black;
 
 }
 
