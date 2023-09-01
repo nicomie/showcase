@@ -1,26 +1,19 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { RouteLocationNormalized, createRouter, createWebHistory } from "vue-router";
 import Main from "../views/Main.vue";
+
+import { useStateStore } from "../store/state";
 
 
 const routes = [
-    {
-      path: "/",
-      component: () => import("../views/Layout.vue"),
-      children: [
       {
         path: '', // The default child route
         name: 'Home',
         component: Main,
-        props: true,
+        props: (route: RouteLocationNormalized) => ({
+          id: route.query.id,
+          fullscreen: route.query.fullscreen
+        }),
       },
-      {
-        path: 'project/:id',
-        name: 'Project',
-        component: () => import("../views/Project.vue"),
-        props: true,
-      },
-      ]
-    },
  
 ]
 
@@ -31,7 +24,20 @@ const router = createRouter({
 
 
   router.beforeEach((to, from) => {
+    let state = useStateStore()
+    
+    if(to.name=='Home' && 'fullscreen' in to.query) {
+      state.setFullscreen(true)
 
+    } else {
+      console.log("NO")
+      state.setFullscreen(false)
+    }
+      
+
+    
+
+    
   })
 
 export default router

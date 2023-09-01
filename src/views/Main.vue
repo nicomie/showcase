@@ -9,7 +9,6 @@ import { useRouter } from 'vue-router';
     let state = useStateStore()
     const main = ref(null)
     const idx = ref(0)
-    const hash = ref("0")
     const router = useRouter()
 
     const nextRoute = reactive({
@@ -17,9 +16,12 @@ import { useRouter } from 'vue-router';
         ready: false
     })
 
+
+
     const isPaused = ref(false)
 
-    const {direction, triggered} = useScroll(main, 300, isPaused)
+    const {direction, triggered} = useScroll(main, 300, state.getFullscreen())
+
 
     const handleScroll = (val: number) => {
 
@@ -35,9 +37,13 @@ import { useRouter } from 'vue-router';
 
         idx.value += val
         state.setActiveIndex(idx.value)
-        // TODO
-        window.location.hash = idx.value.toString()
-        hash.value = window.location.hash;
+        router.push({
+            name: 'Home',
+            query: {
+                id: idx.value
+            }
+        })
+
               
     }
 
@@ -50,11 +56,14 @@ import { useRouter } from 'vue-router';
         nextRoute.index = val
         nextRoute.ready = true
         router.push({
-        name: 'Home',
-        query: {
-            id: nextRoute.index
-        }
-    })
+            name: 'Home',
+            query: {
+                id: idx.value,
+                fullscreen: true
+            }
+        })
+        
+
     }
 
 </script>
@@ -80,14 +89,14 @@ import { useRouter } from 'vue-router';
 
         <Transition :name="direction ? 'up' : 'down'">
         
-          <Wrapper @goTo="changeView" class="absolute h-full w-full" v-if="idx==0" :full="nextRoute.index==0" :reference="idx"/>
+          <Wrapper @goTo="changeView" class="absolute h-full w-full" v-if="idx==0" :full="state.getFullscreen().value" :reference="idx"/>
  
         </Transition>
    
       
        
         <Transition :name="direction ? 'up' : 'down'" >
-          <Wrapper @goTo="changeView" class=" absolute h-full w-full" v-if="idx==1" :full="nextRoute.index==1" :reference="idx"/>
+          <Wrapper @goTo="changeView" class=" absolute h-full w-full" v-if="idx==1" :full="state.getFullscreen().value" :reference="idx"/>
      
 
         </Transition>
@@ -95,7 +104,7 @@ import { useRouter } from 'vue-router';
    
   
     </section>
-    <section v-if="nextRoute.ready" class="h-[1600px] z-10 bg-white w-[100%] right-0 absolute "> HELLo</section>
+    <section v-if="state.getFullscreen().value" class="h-[1600px] z-10 bg-white w-[100%] right-0 absolute "> HELLo</section>
 </template>
 
 <style scoped>
