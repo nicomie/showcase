@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, watch} from 'vue'
 import { useScroll } from '../composition/useScroll';
+import { useStateStore } from '../store/state';
   
+    let state = useStateStore()
     const main = ref(null)
     const idx = ref(0)
 
@@ -24,6 +26,9 @@ import { useScroll } from '../composition/useScroll';
         }
 
         idx.value += val
+  
+        state.setActiveIndex(idx.value)
+              
     }
 
     watch(triggered, () => {
@@ -48,8 +53,8 @@ import { useScroll } from '../composition/useScroll';
          
         </ul>
         
-        <Transition :name="direction ? 'up' : 'down'" v-for="(name, index) in content" >
-        <div class="fixed overflow-hidden h-full w-full" :ref="name" v-if="(idx==index) == true">
+        <Transition :name="direction ? 'up' : 'down'" v-for="(name, index) in content"  >
+        <div class="fixed overflow-hidden h-full w-full" :ref="name" v-if="(idx==index) == true" >
             <slot :name="name" >
 
             </slot>
@@ -123,7 +128,7 @@ ul > article {
   }
   @keyframes fromdown{
     0% {
-        transform: translateY(-600px);
+        transform: translateY(-100%);
  
      
     }
