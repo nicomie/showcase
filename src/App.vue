@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useStateStore } from './store/state';
 import { storeToRefs } from 'pinia';
 

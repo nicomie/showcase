@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, watch,  onMounted} from 'vue'
+import { ref, watch,  } from 'vue'
 import { useScroll } from '../composition/useScroll';
 import { useStateStore } from '../store/state';
 import Wrapper from "../components/showcase/Wrapper.vue"
@@ -64,7 +64,7 @@ import projects from '../store/data.ts'
         direction.value ? handleScroll(-1) : handleScroll(1)
     })
 
-    const changeView = (val: number) => {
+    const changeView = (_: number) => {
         isPaused.value =true;
 
         router.push({
