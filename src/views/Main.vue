@@ -38,7 +38,6 @@ import projects from '../store/data.ts'
         idx.value += val
         state.setActiveIndex(idx.value)
         router.push({
-            name: 'Home',
             query: {
                 id: idx.value
             }
