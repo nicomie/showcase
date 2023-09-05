@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { reactive, ref, watch} from 'vue'
+import { reactive, ref, watch,  onMounted} from 'vue'
 import { useScroll } from '../composition/useScroll';
 import { useStateStore } from '../store/state';
 import Wrapper from "../components/showcase/Wrapper.vue"
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import projects from '../store/data.ts'
 
-  
-    let state = useStateStore()
+    
+    const state = useStateStore()
+    let {fullscreen, activeIndex} = storeToRefs(state)
     const main = ref(null)
-    const idx = ref(0)
+    const idx = activeIndex
     const router = useRouter()
-
-    const nextRoute = reactive({
-        index: -1,
-        ready: false
-    })
 
 
 
     const isPaused = ref(false)
 
-    const {direction, triggered} = useScroll(main, 800, state.getFullscreen())
+    const {direction, triggered} = useScroll(main, 800, fullscreen)
+
+    const data = projects.projects
 
 
     const handleScroll = (val: number) => {
@@ -66,8 +66,7 @@ import { useRouter } from 'vue-router';
 
     const changeView = (val: number) => {
         isPaused.value =true;
-        nextRoute.index = val
-        nextRoute.ready = true
+
         router.push({
             name: 'Home',
             query: {
@@ -79,13 +78,16 @@ import { useRouter } from 'vue-router';
 
     }
 
+
+
+
 </script>
 
 <template>
     
-    <section  ref="main" class="h-screen  w-screen flex flex-col items-center relative justify-center ">
+    <section  ref="main" class="h-screen  w-scren flex  flex-col items-center relative justify-center ">
    
-        <ul v-if="!state.getFullscreen().value" class="flex flex-col gap-5 absolute left-0 ml-32 [&>*]:bg-[black] [&>*]:w-5 [&>*]:h-2 [&>*]:rounded-full z-10">
+        <ul v-if="!state.fullscreen" class="flex flex-col gap-5 absolute left-0 top-10 lg:top-auto lg:ml-32 [&>*]:bg-[white] [&>*]:w-5 [&>*]:h-2 [&>*]:rounded-full z-10">
             
             <article :class="{active2: idx==0}"></article>
 
@@ -98,16 +100,16 @@ import { useRouter } from 'vue-router';
 
         <Transition :name="direction ? 'up' : 'down'">
         
-          <Wrapper @goTo="changeView" class="absolute h-full w-full" v-if="idx==0" :full="state.getFullscreen().value" :reference="idx" 
-          title="Note Taking Application" img="https://images.unsplash.com/photo-1528141603775-81fd11f61682?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"/>
+          <Wrapper :tags="data[0].tags" @goTo="changeView" class="absolute " v-if="idx==0" :full="state.fullscreen" :reference="idx" 
+          :title="data[0].name" img="https://images.unsplash.com/photo-1528141603775-81fd11f61682?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"/>
  
         </Transition>
    
       
        
         <Transition :name="direction ? 'up' : 'down'" >
-          <Wrapper @goTo="changeView" class=" absolute h-full w-full" v-if="idx==1" :full="state.getFullscreen().value" :reference="idx" 
-          title="Café Ordering System" img="https://images.unsplash.com/photo-1511227499331-25c621db940e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2128&q=80"/>
+          <Wrapper :tags="data[1].tags" @goTo="changeView" class=" absolute " v-if="idx==1" :full="state.fullscreen" :reference="idx" 
+          :title="data[1].name" img="https://images.unsplash.com/photo-1511227499331-25c621db940e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2128&q=80"/>
      
 
         </Transition>
@@ -116,7 +118,34 @@ import { useRouter } from 'vue-router';
   
     </section>
  
-    <section v-if="state.getFullscreen().value" class="extra h-[1600px] z-10 bg-white w-[100%] right-0 absolute "> HELLo</section>
+    <section v-if="state.fullscreen" class="extra h-[800px] flex flex-col  items-start justify-start z-10 bg-main w-full right-0 absolute "> 
+        
+
+        <article class=" py-12 text-white bg-main w-full flex flex-col items-center">
+            <article>
+                <h2 class="text-5xl">Key challenges</h2>
+
+            
+            <ul class="mt-8">
+                <li class="py-2 text-xl" v-for="(challenge, index) in data[idx].key_challenges" :key="index"> <span class="mr-4">#{{ index+1 }}</span> {{ challenge }}</li>
+            </ul>
+            </article>
+            
+
+        </article>
+        <article class=" py-12 text-white bg-secondary_contrast w-full flex flex-col items-center">
+            <article>
+                <h2 class="text-5xl">Key challenges</h2>
+
+            
+            <ul class="mt-8">
+                <li class="py-2 text-xl" v-for="(challenge, index) in data[idx].key_challenges" :key="index"> <span class="mr-4">#{{ index+1 }}</span> {{ challenge }}</li>
+            </ul>
+            </article>
+            
+
+        </article>
+    </section>
 
 </template>
 
@@ -133,11 +162,11 @@ ul > article {
 
 .extra {
     transition: all .35s ease;
-   
 }
+
 .active2 {
     width: 4rem;
-    background-color: black;
+
 
 }
 

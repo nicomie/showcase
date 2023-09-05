@@ -33,11 +33,15 @@ const router = createRouter({
       console.log("NO")
       state.setFullscreen(false)
     }
+
+    if(to.name=='Home' && 'id' in to.query) {
+      console.log(to.query.id)
+      if(to.query.id) state.setActiveIndex(parseInt(to.query.id.toString()))
+
+    }
       
-
-    
-
-    
   })
+
+
 
 export default router

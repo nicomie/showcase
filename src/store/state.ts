@@ -10,26 +10,16 @@ export const useStateStore = defineStore('state',() => {
         activeIndex.value = val
     }
 
-    const getActiveIndex = () => {
-        return activeIndex
-    }
-
     const setFullscreen = (val: boolean) => {
         fullscreen.value = val
-    }
-
-    const getFullscreen = () => {
-        return fullscreen
     }
 
     const setHash = (id: number) => {
         hash.value = id
     }
-    const getHash = () => {
-        return hash
-    }
+
 
     return {
-        getActiveIndex, setActiveIndex, getFullscreen, setFullscreen, getHash, setHash
+        activeIndex, setActiveIndex, fullscreen, setFullscreen, hash, setHash
     }
 })
