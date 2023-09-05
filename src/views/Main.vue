@@ -118,7 +118,7 @@ import projects from '../store/data.ts'
   
     </section>
  
-    <section v-if="state.fullscreen" class="extra h-[800px] flex flex-col  items-start justify-start z-10 bg-main w-full right-0 absolute "> 
+    <section v-if="state.fullscreen" class="extra flex flex-col  items-start justify-start z-10 bg-main w-full right-0 absolute "> 
         
 
         <article class=" py-12 text-white bg-main w-full flex flex-col items-center">
